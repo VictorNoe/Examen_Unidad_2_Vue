@@ -35,6 +35,10 @@ public class BookController {
         return new ResponseEntity<>(this.service.searchPublicationDate(), HttpStatus.CREATED);
     }
 
+    @GetMapping("/image")
+    public ResponseEntity<CustomResponse<List<Book>>> getImage() {
+        return new ResponseEntity<>(this.service.searchImage(), HttpStatus.CREATED);
+    }
     @PostMapping("/")
     public ResponseEntity<CustomResponse<Book>> inset(@RequestBody Book book) {
         return new ResponseEntity<>(this.service.insert(book), HttpStatus.CREATED);

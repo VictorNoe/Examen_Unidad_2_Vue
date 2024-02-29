@@ -22,7 +22,16 @@ const getAuthor = async () => {
 
 const getPublication = async () => {
     try {
-        const response = await axios.post(API_URL + "publication");
+        const response = await axios.get(API_URL + "publication");
+        return response.data.data;
+    } catch (error) {
+        return [];
+    }
+};
+
+const getImage = async () => {
+    try {
+        const response = await axios.get(API_URL + "image");
         return response.data.data;
     } catch (error) {
         return [];
@@ -78,4 +87,5 @@ export default {
     insetBook,
     deleteBook,
     updateBook,
+    getImage
 }

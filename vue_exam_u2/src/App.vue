@@ -12,7 +12,7 @@
         <b-button pill variant="primary">Mostrar si tiene imagen</b-button>
       </b-col>
       <b-col cols="4">
-        <b-button variant="primary">Gregar</b-button>
+        <b-button variant="primary" v-b-modal.modal-insert>Agregar</b-button>
       </b-col>
     </b-row>
     <b-row>
@@ -21,6 +21,9 @@
           <b-col cols="4" v-for="(book, index) in books" :key="index" @dragstart="handleDragStart(book.id)">
             <Cards
               :data="book"
+            />
+            <ModalUpdate
+              :book="book"
             />
           </b-col>
         </b-row>
@@ -42,12 +45,18 @@
         </b-row>
       </b-col>
     </b-row>
+    <ModalInsert
+      :data="books"
+      :find="getBook()"
+    />
   </b-container>
 </template>
 <script>
 import services from './services/index';
 import Cards from './components/Cards.vue';
 import Carousel from './components/Carousel.vue';
+import ModalInsert from './components/ModalInsert.vue';
+import ModalUpdate from './components/ModalUpdate.vue';
 export default {
   data() {
     return {
@@ -56,7 +65,9 @@ export default {
   },
   components: {
     Cards,
-    Carousel
+    Carousel,
+    ModalInsert,
+    ModalUpdate
   },
   methods: {
     async getBook() {
@@ -88,7 +99,7 @@ export default {
     heandleInsert(event) {
       event.preventDefault();
       const index = event.dataTransfer.getData("text/plain");
-      
+      this.$bvModal.show("modal-update")
     }
   },
   mounted() {

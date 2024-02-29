@@ -32,13 +32,11 @@ const getPublication = async () => {
 const insetBook = async (name_book, author_book, publication_date) => {
     try {
         const response = await axios.post(API_URL, {
-            nameBook: name_book,
             author: author_book,
-            publicationDate: publication_date,
-            image: '',
+            nameBook: name_book,
+            publicationDate: publication_date
         });
-        
-        return response;
+        return;
     } catch (error) {
         return error;
     }

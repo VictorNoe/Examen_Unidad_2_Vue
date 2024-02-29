@@ -11,22 +11,18 @@ const getBooks = async () => {
     }
 };
 
-const getAuthor = async (name_author) => {
+const getAuthor = async () => {
     try {
-        const response = await axios.post(API_URL + "author", {
-            author: name_author
-        });
+        const response = await axios.get(API_URL + "author");
         return response.data.data;
     } catch (error) {
         return [];
     }
 };
 
-const getPublication = async (publication) => {
+const getPublication = async () => {
     try {
-        const response = await axios.post(API_URL + "publication", {
-            publication_date: publication
-        });
+        const response = await axios.post(API_URL + "publication");
         return response.data.data;
     } catch (error) {
         return [];

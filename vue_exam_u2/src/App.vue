@@ -63,7 +63,14 @@ export default {
       const response = await services.getBooks();
       this.books = response;
     },
-    
+    async getByAuthors() {
+      const response = await services.getAuthor();
+      this.books = response;
+    },
+    async getBypublicationDate() {
+      const response = await services.getPublication();
+      this.books = response;
+    },
     async dropBook(id) {
       const response = await services.deleteBook(id);
       console.log(response);

@@ -1,8 +1,8 @@
 <template lang="">
     <div>
         <b-card
-            :title="data.name_book"
-            img-src="https://picsum.photos/600/300/?image=25"
+            :title="data.nameBook"
+            :img-src="data.image"
             img-alt="Image"
             img-top
             tag="article"
@@ -11,7 +11,7 @@
         >
             <b-card-text>
                 <p>{{data.author}}</p>
-                <p>{{data.publication_date}}</p>
+                <p>{{data.publicationDate}}</p>
             </b-card-text>
         </b-card>
     </div>

@@ -7,9 +7,9 @@
     </b-row>
     <b-row>
       <b-col cols="8" class="mb-3 d-flex justify-content-center">
-        <b-button pill variant="primary">Ordenar por autor</b-button>
-        <b-button pill variant="primary">Ordenar por fecha</b-button>
-        <b-button pill variant="primary">Mostrar si tiene imagen</b-button>
+        <b-button pill variant="primary" @click="getByAuthors">Ordenar por autor</b-button>
+        <b-button pill variant="primary"  @click="getBypublicationDate">Ordenar por fecha</b-button>
+        <b-button pill variant="primary" @click="getImage">Mostrar si tiene imagen</b-button>
       </b-col>
       <b-col cols="4">
         <b-button variant="primary">Gregar</b-button>
@@ -20,6 +20,7 @@
         <b-row>
           <b-col cols="4" v-for="(book, index) in books" :key="index" @dragstart="handleDragStart(book.id)">
             <Cards
+            class="animate__animated animate__bounce"
               :data="book"
             />
           </b-col>
@@ -42,21 +43,23 @@
         </b-row>
       </b-col>
     </b-row>
+  
   </b-container>
+  
 </template>
 <script>
-import services from './services/index';
-import Cards from './components/Cards.vue';
-import Carousel from './components/Carousel.vue';
+import services from "./services/index";
+import Cards from "./components/Cards.vue";
+import Carousel from "./components/Carousel.vue";
 export default {
   data() {
     return {
-      books: []
-    }
+      books: [],
+    };
   },
   components: {
     Cards,
-    Carousel
+    Carousel,
   },
   methods: {
     async getBook() {
@@ -71,10 +74,14 @@ export default {
       const response = await services.getPublication();
       this.books = response;
     },
+    async getImage() {
+      const response = await services.getImage();
+      this.books = response;
+    },
     async dropBook(id) {
       const response = await services.deleteBook(id);
       console.log(response);
-      this.getBook()
+      this.getBook();
     },
     handleDragStart(index) {
       event.dataTransfer.setData("text/plain", index);
@@ -88,14 +95,12 @@ export default {
     heandleInsert(event) {
       event.preventDefault();
       const index = event.dataTransfer.getData("text/plain");
-      
-    }
+    },
   },
   mounted() {
     this.getBook();
   },
-}
+};
 </script>
 <style lang="">
-  
 </style>

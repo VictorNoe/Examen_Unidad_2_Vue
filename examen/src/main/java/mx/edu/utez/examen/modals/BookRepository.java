@@ -12,4 +12,5 @@ public interface BookRepository extends JpaRepository<Book, Long> {
     List<Book> findAllByOrderByAuthorAsc();
 
     List<Book> findAllByOrderByPublicationDateAsc();
+    List<Book> findAllByImageIsNotNull();
 }

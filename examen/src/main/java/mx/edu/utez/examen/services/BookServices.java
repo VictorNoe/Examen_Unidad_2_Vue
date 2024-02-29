@@ -48,10 +48,19 @@ public class BookServices {
             return new CustomResponse<>(null, true, 500, "Error al buscar libros por rango de fechas");
         }
     }
+    @Transactional(readOnly = true)
+    public CustomResponse<List<Book>> searchImage() {
+        try {
+            return new CustomResponse<>(repository.findAllByImageIsNotNull(), false, 200, "OK");
+        } catch (Exception e) {
+            return new CustomResponse<>(null, true, 500, "Error al buscar libros por rango de fechas");
+        }
+    }
+
 
     @Transactional(rollbackFor = {SQLException.class})
     public CustomResponse<Book> insert(Book book) {
-        book.setImage("https://picsum.photos/200/300");
+        book.setImage("https://picsum.photos/100/50");
         try {
             return new CustomResponse<>(this.repository.saveAndFlush(book), false, 201, "OK");
         } catch (Exception e) {

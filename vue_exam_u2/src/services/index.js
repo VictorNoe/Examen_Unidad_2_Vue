@@ -60,15 +60,14 @@ const deleteBook = async (id_book) => {
     }
 };
 
-const updateBook = async (id_book, name_book, author_book, publication_date, image_book) => {
+const updateBook = async (id_book, author_book, name_book, publication_date) => {
     try {
         try {
             const response = await axios.post(API_URL, {
                 id: id_book,
-                nameBook: name_book,
                 author: author_book,
+                nameBook: name_book,
                 publicationDate: publication_date,
-                image: image_book,
             });
             return response;
         } catch (error) {

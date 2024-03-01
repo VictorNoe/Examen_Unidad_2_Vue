@@ -1,17 +1,17 @@
 <template lang="">
-  <b-container>
-    <b-row class="mb-3">
+  <b-container style="height: 2000px">
+    <b-row class="mb-3" v-show="showElement">
       <b-col>
         <Carousel/>
       </b-col>
     </b-row>
     <b-row>
-      <b-col cols="8" class="mb-3 d-flex justify-content-center">
+      <b-col cols="8" class="mb-3 mt-3 d-flex justify-content-center">
         <b-button pill variant="primary" @click="getByAuthors">Ordenar por autor</b-button>
         <b-button pill variant="primary"  @click="getBypublicationDate">Ordenar por fecha</b-button>
         <b-button pill variant="primary" @click="getImage">Mostrar si tiene imagen</b-button>
       </b-col>
-      <b-col cols="4">
+      <b-col cols="4" class="mb-3 mt-3">
         <b-button variant="primary" v-b-modal.modal-insert>Agregar</b-button>
       </b-col>
     </b-row>
@@ -72,6 +72,9 @@ export default {
       author: null,
       name_book: null,
       publication_date: null,
+      image: null,
+      showElement: true,
+      lastScrollPosition: 0,
       books: [],
       bookUpdate: {},
     };
@@ -110,6 +113,14 @@ export default {
       console.log(response);
       this.getBook();
     },
+    onScroll() {
+      const currentScrollPosition = window.pageYOffset || document.documentElement.scrollTop;
+      if (Math.abs(currentScrollPosition - this.lastScrollPosition) < 100) {
+        return;
+      }
+      this.showElement = currentScrollPosition < this.lastScrollPosition; 
+      this.lastScrollPosition = currentScrollPosition;
+    },
     handleDragStart(index) {
       event.dataTransfer.setData("text/plain", index);
     },
@@ -137,6 +148,10 @@ export default {
   },
   mounted() {
     this.getBook();
+    window.addEventListener("scroll", this.onScroll);
+  },
+  beforeDestroy() {
+    window.removeEventListener("scroll", this.onScroll);
   },
 };
 </script>

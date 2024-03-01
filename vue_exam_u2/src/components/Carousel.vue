@@ -1,23 +1,19 @@
 <template lang="">
-    <div class="h-50">
+    <div>
         <b-carousel
             id="carousel-fade"
+            :interval="3000"
             style="text-shadow: 0px 0px 2px #000"
             fade
             indicators
             img-width="1080"
-            img-height="200"
-
         >
             <b-carousel-slide
-         
-            v-for="(book, index) in books" :key="index"
-          
-            :caption="book.nameBook"
-
-            :img-src="book.image"
-            ></b-carousel-slide>
-           
+              style=" min-height: 300px; max-height: 300px;"
+              v-for="(book, index) in books" :key="index"
+              :caption="book.nameBook"
+              :img-src="book.image"
+            ></b-carousel-slide> 
         </b-carousel>
     </div>
 </template>

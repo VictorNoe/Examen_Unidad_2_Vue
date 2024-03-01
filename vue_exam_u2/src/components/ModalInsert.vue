@@ -15,6 +15,7 @@ import services from '../services';
 export default {
     props: {
         data: Array,
+        get: Function
     },
     data() {
         return {

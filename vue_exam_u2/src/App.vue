@@ -20,11 +20,8 @@
         <b-row>
           <b-col cols="4" v-for="(book, index) in books" :key="index" @dragstart="handleDragStart(book.id)">
             <Cards
-            class="animate__animated animate__bounce"
+              class="animate__animated animate__bounce"
               :data="book"
-            />
-            <ModalUpdate
-              :book="book"
             />
           </b-col>
         </b-row>
@@ -48,9 +45,17 @@
     </b-row>
     <ModalInsert
       :data="books"
-      :find="getBook()"
     />
-  
+    <div>
+        <b-modal id="modal-update" title="BootstrapVue" centered @ok="updateBook">
+            <label for="">Autor</label>
+            <b-form-input type="text" v-model="author"></b-form-input>
+            <label for="">Nombre libro</label>
+            <b-form-input type="text" v-model="name_book"></b-form-input>
+            <label for="">Fecha de publicación</label>
+            <b-form-input type="date" v-model="publication_date"></b-form-input>
+        </b-modal>
+    </div>
   </b-container>
   
 </template>
@@ -63,7 +68,12 @@ import ModalUpdate from './components/ModalUpdate.vue';
 export default {
   data() {
     return {
+      id: null,
+      author: null,
+      name_book: null,
+      publication_date: null,
       books: [],
+      bookUpdate: {},
     };
   },
   components: {
@@ -94,6 +104,12 @@ export default {
       console.log(response);
       this.getBook();
     },
+    async updateBook() {
+      console.log(this.publication_date);
+      const response = await services.updateBook(this.id, this.author, this.name_book, this.publication_date)
+      console.log(response);
+      this.getBook();
+    },
     handleDragStart(index) {
       event.dataTransfer.setData("text/plain", index);
     },
@@ -106,12 +122,22 @@ export default {
     heandleInsert(event) {
       event.preventDefault();
       const index = event.dataTransfer.getData("text/plain");
+      for (let i = 0; i < this.books.length; i++) {
+        if (this.books[i].id === parseInt(index)) {
+          this.id = this.books[i].id;
+          this.author = this.books[i].author
+          this.name_book = this.books[i].nameBook
+          this.publication_date = this.books[i].publicationDate
+          break;
+        }
+
+      }
       this.$bvModal.show("modal-update")
     }
   },
-mounted() {
-  this.getBook();
-},
+  mounted() {
+    this.getBook();
+  },
 };
 </script>
 <style lang="">

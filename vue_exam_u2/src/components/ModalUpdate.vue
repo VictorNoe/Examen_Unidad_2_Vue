@@ -14,7 +14,7 @@
 import services from '../services';
 export default {
     props: {
-        book: Object,
+        book: Array,
     },
     data() {
         return {
@@ -22,10 +22,11 @@ export default {
             author: null,
             name_book: null,
             publication_date: null,
-            data: []
+            data: book
         }
     },
     mounted() {
+        console.log(book);
         this.data = this.book;
         this.info();
     },

@@ -27,7 +27,7 @@ export default {
     methods: {
         async innerBook () {
             console.log(this.publication_date);
-            const response = await services.insetBook(this.author,this.name_book,this.publication_date)
+            const response = await services.insetBook(this.name_book,this.author,this.publication_date)
             console.log(response);
             location.reload();
         },

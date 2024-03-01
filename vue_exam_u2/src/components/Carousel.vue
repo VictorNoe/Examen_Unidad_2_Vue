@@ -5,8 +5,6 @@
             :interval="3000"
             style="text-shadow: 0px 0px 2px #000"
             fade
-            indicators
-            img-width="1080"
         >
             <b-carousel-slide
               style=" min-height: 300px; max-height: 300px;"

@@ -27,17 +27,17 @@ public class BookController {
 
     @GetMapping("/author")
     public ResponseEntity<CustomResponse<List<Book>>> getAutor() {
-        return new ResponseEntity<>(this.service.getAllOrderByAuthor(), HttpStatus.CREATED);
+        return new ResponseEntity<>(this.service.getAllOrderByAuthor(), HttpStatus.OK);
     }
 
     @GetMapping("/publication")
     public ResponseEntity<CustomResponse<List<Book>>> getPublicationDate() {
-        return new ResponseEntity<>(this.service.searchPublicationDate(), HttpStatus.CREATED);
+        return new ResponseEntity<>(this.service.searchPublicationDate(), HttpStatus.OK);
     }
 
     @GetMapping("/image")
     public ResponseEntity<CustomResponse<List<Book>>> getImage() {
-        return new ResponseEntity<>(this.service.searchImage(), HttpStatus.CREATED);
+        return new ResponseEntity<>(this.service.searchImage(), HttpStatus.OK);
     }
     @PostMapping("/")
     public ResponseEntity<CustomResponse<Book>> inset(@RequestBody Book book) {

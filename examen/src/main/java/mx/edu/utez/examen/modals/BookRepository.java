@@ -9,8 +9,12 @@ import java.util.List;
 
 public interface BookRepository extends JpaRepository<Book, Long> {
 
-    List<Book> findAllByOrderByAuthorAsc();
+    @Query(value = "SELECT * FROM books ORDER BY author;", nativeQuery = true)
+    List<Book> findAllByOrderByAuthor();
 
-    List<Book> findAllByOrderByPublicationDateAsc();
+    @Query(value = "SELECT * FROM books ORDER BY publication_date;", nativeQuery = true)
+    List<Book> findAllByOrderByPublicationDate();
+
+    @Query(value = "SELECT * FROM books WHERE image !='';", nativeQuery = true)
     List<Book> findAllByImageIsNotNull();
 }

@@ -34,7 +34,7 @@ public class BookServices {
     @Transactional(readOnly = true)
     public CustomResponse<List<Book>> getAllOrderByAuthor() {
         try {
-            return new CustomResponse<>(this.repository.findAllByOrderByAuthorAsc(), false, 200, "OK");
+            return new CustomResponse<>(this.repository.findAllByOrderByAuthor(), false, 200, "OK");
         } catch (Exception e) {
             return new CustomResponse<>(null,true, 500, "Error de libros");
         }
@@ -43,7 +43,7 @@ public class BookServices {
     @Transactional(readOnly = true)
     public CustomResponse<List<Book>> searchPublicationDate() {
         try {
-            return new CustomResponse<>(repository.findAllByOrderByPublicationDateAsc(), false, 200, "OK");
+            return new CustomResponse<>(repository.findAllByOrderByPublicationDate(), false, 200, "OK");
         } catch (Exception e) {
             return new CustomResponse<>(null, true, 500, "Error al buscar libros por rango de fechas");
         }
@@ -60,7 +60,7 @@ public class BookServices {
 
     @Transactional(rollbackFor = {SQLException.class})
     public CustomResponse<Book> insert(Book book) {
-        book.setImage("https://picsum.photos/100/50");
+        book.setImage("https://picsum.photos/200/80");
         try {
             return new CustomResponse<>(this.repository.saveAndFlush(book), false, 201, "OK");
         } catch (Exception e) {
